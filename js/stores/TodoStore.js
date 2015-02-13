@@ -171,12 +171,12 @@ AppDispatcher.register(function(action) {
       break;
 
     case TodoConstants.TODO_UNDO_COMPLETE:
-      update(action.id, {complete: false});
+      updateWithHistory(action.id, {complete: false});
       TodoStore.emitChange();
       break;
 
     case TodoConstants.TODO_COMPLETE:
-      update(action.id, {complete: true});
+      updateWithHistory(action.id, {complete: true});
       TodoStore.emitChange();
       break;
 
@@ -187,13 +187,13 @@ AppDispatcher.register(function(action) {
     case TodoConstants.TODO_UPDATE_TEXT:
       text = action.text.trim();
       if (text !== '') {
-        update(action.id, {text: text});
+        updateWithHistory(action.id, {text: text});
       }
       TodoStore.emitChange();
       break;
 
     case TodoConstants.TODO_DESTROY:
-      destroy(action.id);
+      destroyWithHistory(action.id);
       TodoStore.emitChange();
       break;
 

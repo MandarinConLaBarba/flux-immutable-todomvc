@@ -241,15 +241,6 @@ var Header = React.createClass({displayName: "Header",
 module.exports = Header;
 
 },{"../actions/TodoActions":2,"./TodoTextInput.react":10,"react":168}],5:[function(require,module,exports){
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var HistoryListItem = require('./HistoryListItem.react');
@@ -288,15 +279,6 @@ var HistoryList = React.createClass({displayName: "HistoryList",
 module.exports = HistoryList;
 
 },{"./HistoryListItem.react":6,"react":168}],6:[function(require,module,exports){
-/**
- * Copyright (c) 2014, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/TodoActions');
@@ -862,12 +844,12 @@ AppDispatcher.register(function(action) {
       break;
 
     case TodoConstants.TODO_UNDO_COMPLETE:
-      update(action.id, {complete: false});
+      updateWithHistory(action.id, {complete: false});
       TodoStore.emitChange();
       break;
 
     case TodoConstants.TODO_COMPLETE:
-      update(action.id, {complete: true});
+      updateWithHistory(action.id, {complete: true});
       TodoStore.emitChange();
       break;
 
@@ -878,13 +860,13 @@ AppDispatcher.register(function(action) {
     case TodoConstants.TODO_UPDATE_TEXT:
       text = action.text.trim();
       if (text !== '') {
-        update(action.id, {text: text});
+        updateWithHistory(action.id, {text: text});
       }
       TodoStore.emitChange();
       break;
 
     case TodoConstants.TODO_DESTROY:
-      destroy(action.id);
+      destroyWithHistory(action.id);
       TodoStore.emitChange();
       break;
 
