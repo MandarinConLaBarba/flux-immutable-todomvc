@@ -26,3 +26,8 @@
     cursor: pointer;
     color: cornflowerblue;
 }
+
+#todo-list li.just-edited {
+    border: 1px solid red;
+}
+

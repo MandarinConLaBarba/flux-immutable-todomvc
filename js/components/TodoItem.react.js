@@ -7,7 +7,8 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-var React = require('react');
+var React = require('react/addons');
+var PureRenderMixin = React.addons.PureRenderMixin;
 var ReactPropTypes = React.PropTypes;
 var TodoActions = require('../actions/TodoActions');
 var TodoTextInput = require('./TodoTextInput.react');
@@ -16,13 +17,16 @@ var cx = require('react/lib/cx');
 
 var TodoItem = React.createClass({
 
+  mixins: [PureRenderMixin],
+
   propTypes: {
    todo: ReactPropTypes.object.isRequired
   },
 
   getInitialState: function() {
     return {
-      isEditing: false
+      isEditing: false,
+      justUpdated: false
     };
   },
 
@@ -51,10 +55,11 @@ var TodoItem = React.createClass({
       <li
         className={cx({
           'completed': todo.complete,
-          'editing': this.state.isEditing
+          'editing': this.state.isEditing,
+          'just-edited': this.state.justUpdated
         })}
         key={todo.id}>
-        <div className="view">
+        <div ref="todoOuterWrap" className="view">
           <input
             className="toggle"
             type="checkbox"
@@ -69,6 +74,18 @@ var TodoItem = React.createClass({
         {input}
       </li>
     );
+  },
+
+  componentDidUpdate: function (prevProps, prevState) {
+    if (prevProps === this.props) return;
+
+    console.log("OK, updated node with key " + this.props.todo.id);
+
+    this.setState({justUpdated: true});
+
+    setTimeout(function () {
+      this.setState({justUpdated: false})
+    }.bind(this), 1000);
   },
 
   _onToggleComplete: function() {
