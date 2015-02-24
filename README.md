@@ -7,3 +7,17 @@
 ## Demo URL
 
 http://mandarinconlabarba.github.io/flux-immutable-todomvc/
+
+
+## Building
+
+NOTE: requires `gulp` (`npm install -g gulp`)
+
+
+```
+
+$ npm install
+$ gulp reactify
+$ gulp bundle
+
+```
