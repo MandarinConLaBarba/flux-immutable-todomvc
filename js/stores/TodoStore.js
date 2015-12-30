@@ -109,12 +109,12 @@ var TodoStore = assign({}, EventEmitter.prototype, {
    * @return {boolean}
    */
   areAllComplete: function() {
-    for (var id in _todos) {
-      if (!_todos.getIn([id, 'complete'])) {
+    for (var todo of _todos.values()) {
+      if (!todo.get('complete')) {
         return false;
       }
     }
-    return true;
+      return true;
   },
 
   /**
